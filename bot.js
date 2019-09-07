@@ -9,11 +9,24 @@ function findKeywords(TOS) {
     var TOSArray = TOS.split(" ");
     var output = [];
     var i;
-
+    var lastPeriod = 0;
+    var nextPeriod = 0;
+    //Cycle through each word in array and find the first period.
     for (i = 0; i < TOSArray.length; i++) {
-        if (keywords.includes(TOSArray[i])) {
-            output.push(TOSArray[i-2]) + " " + (TOSArray[i-1] + " " + (TOSArray[i]))
-                                       + " " + (TOSArray[i+1] + " " + (TOSArray[i+2]))
+        if (TOSArray[i][-1] === "."){
+            firstPeriod = i;
+        }
+        // If there exists a keyword loop through the array from firstPeriod until another period is found. Then break.
+        if (keywords.includes(TOSArray[i]) || keywords.includes(TOSArray[i].slice(0,-1))) {
+            
+            for (var j = firstPeriod; j < TOSArray.length; j++){
+                if (TOSArray[j][-1] === "."){
+                    nextPeriod = j;
+                    break
+                }
+            }
+            // Output each word from period to period (forming a sentence with a keyword in it)
+            output.push(TOSArray.slice(TOSArray[firstPeriod+1,nextPeriod]));
         }
     return output;
     }
