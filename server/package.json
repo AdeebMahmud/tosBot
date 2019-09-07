@@ -1,0 +1,22 @@
+{
+  "name": "keybasebot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdeebMahmud/tosBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdeebMahmud/tosBot/issues"
+  },
+  "homepage": "https://github.com/AdeebMahmud/tosBot#readme",
+  "dependencies": {
+    "keybase-bot": "^3.0.0"
+  }
+}

@@ -1,15 +1,23 @@
 const Bot = require('keybase-bot');
 
 const bot = new Bot();
-const keywords = ["credit card", "address", "history","age","personal","street","city"];
+
 const username = 'tosbot';
 const paperkey = require('./creds.json');
 
-function findKeywords(TOS) {
+function messageSent() {}
+
+function buildDrawPage() {
+    drawPages = [] //key value pair unique Id and subscriber
+    
+    return URL;
+}
+/*function findKeywords(TOS) {
+    const keywords = ["credit card", "address", "history","age","personal","street","city"];
     var TOSArray = TOS.split(" ");
     var output = [];
     var i;
-    var lastPeriod = 0;
+    var firstPeriod = 0;
     var nextPeriod = 0;
     //Cycle through each word in array and find the first period.
     for (i = 0; i < TOSArray.length; i++) {
@@ -26,39 +34,33 @@ function findKeywords(TOS) {
                 }
             }
             // Output each word from period to period (forming a sentence with a keyword in it)
-            output.push(TOSArray.slice(TOSArray[firstPeriod+1,nextPeriod]));
+            output.push(TOSArray.slice(TOSArray[firstPeriod+1],TOSArray[nextPeriod]));
         }
     return output;
     }
-}
+}*/
+
 bot
-  .init(username, paperkey, {verbose: false})
+  .init(username, paperkey.paperkey, {verbose: false})
   .then(() => {
     console.log(`Your bot is initialized. It is logged in as ${bot.myInfo().username}`)
-
-    const channel = {name: 'tosbot,' + bot.myInfo().username, public: false, topicType: 'chat'}
-    const message = {
-      body: `Hello kbot! This is ${bot.myInfo().username} saying hello from my device ${bot.myInfo().devicename}`,
-    }
-    // User command to paste in Terms of Service
-    bot.chat.read(channel).then((message) => {
-        if (message[0] == "#") {
-            var TOS = message.slice(1);
-        }
+    
+    var finalMessage = "";
+    
+    bot.chat.watchAllChannelsForNewMessages(message => {
+      
+        const channel = message.channel;
+        
+        if(message[0,4] == '!draw') {
+            bot.chat.send(channel, {body: URL}).then(messageSent);
+        };
     })
-
-    bot.chat
-      .send(channel, message)
-      .then(() => {
-        console.log('Message sent!')
-        bot.deinit()
-      })
-      .catch(error => {
+    .catch(error => {
         console.error(error)
         bot.deinit()
-      })
-  })
-  .catch(error => {
-    console.error(error)
-    bot.deinit()
-  })
+    })
+})
+.catch(error => {
+console.error(error)
+bot.deinit()
+})
