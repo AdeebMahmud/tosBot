@@ -1,8 +1,23 @@
 const Bot = require('keybase-bot');
 
 const bot = new Bot();
+const keywords = ["credit card", "address", "history","age","personal","street","city"];
 const username = 'tosbot';
 const paperkey = require('./creds.json');
+
+function findKeywords(TOS) {
+    var TOSArray = TOS.split(" ");
+    var output = [];
+    var i;
+
+    for (i = 0; i < TOSArray.length; i++) {
+        if (keywords.includes(TOSArray[i])) {
+            output.push(TOSArray[i-2]) + " " + (TOSArray[i-1] + " " + (TOSArray[i]))
+                                       + " " + (TOSArray[i+1] + " " + (TOSArray[i+2]))
+        }
+    return output;
+    }
+}
 bot
   .init(username, paperkey, {verbose: false})
   .then(() => {
