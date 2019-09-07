@@ -40,6 +40,12 @@ bot
     const message = {
       body: `Hello kbot! This is ${bot.myInfo().username} saying hello from my device ${bot.myInfo().devicename}`,
     }
+    // User command to paste in Terms of Service
+    bot.chat.read(channel).then((message) => {
+        if (message[0] == "#") {
+            var TOS = message.slice(1);
+        }
+    })
 
     bot.chat
       .send(channel, message)
